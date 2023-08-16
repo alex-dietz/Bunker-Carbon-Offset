@@ -5,7 +5,7 @@ import { CertificatesComponent } from './certificates/certificates.component';
 const routes: Routes = [
   //auction routes
   { path: '', redirectTo: 'auctions', pathMatch: 'full' },
-  { path: 'auctions', loadChildren: () => import('./auction/auction.module').then((m) => m.AuctionModule) }
+  { path: 'auctions', loadChildren: () => import('./auction/auction.module').then((m) => m.AuctionModule) },
   { path: 'certificates', component: CertificatesComponent }
 ];
 
