@@ -3,9 +3,14 @@ import { CommonModule } from '@angular/common';
 import { AuctionComponent } from './auction.component';
 //add routing
 import { RouterModule, Routes } from '@angular/router';
-const routes: Routes = [{ path: '', component: AuctionComponent }];
+import { NewAuctionComponent } from './new-auction/new-auction.component';
+import { FormsModule } from '@angular/forms';
+const routes: Routes = [
+  { path: '', component: AuctionComponent },
+  { path: 'new', component: NewAuctionComponent }
+];
 @NgModule({
-  declarations: [AuctionComponent],
-  imports: [CommonModule, RouterModule.forChild(routes)]
+  declarations: [AuctionComponent, NewAuctionComponent],
+  imports: [CommonModule, FormsModule, RouterModule.forChild(routes)]
 })
 export class AuctionModule {}

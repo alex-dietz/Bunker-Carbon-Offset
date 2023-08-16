@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "username": "admin123",
+    "role": "admin"
+  },
+  {
+    "id": 2,
+    "username": "buyer456",
+    "role": "buyer"
+  },
+  {
+    "id": 3,
+    "username": "supplier789",
+    "role": "supplier"
+  },
+  {
+    "id": 4,
+    "username": "supplier555",
+    "role": "supplier"
+  },
+  {
+    "id": 5,
+    "username": "supplier321",
+    "role": "supplier"
+  }
+]

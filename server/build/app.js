@@ -16,27 +16,30 @@ const express_1 = __importDefault(require("express"));
 const web3_1 = __importDefault(require("web3"));
 const app = (0, express_1.default)();
 const PORT = 3000;
-const RPC_URL = "https://intensive-flashy-morning.matic-testnet.discover.quiknode.pro/8206d52b4c4e2a29f905f5e3c5cb8d58dd3371d7/";
+const RPC_URL = "http://192.168.215.184:7545";
 const web3 = new web3_1.default(new web3_1.default.providers.HttpProvider(RPC_URL));
 // Contract details
-const CONTRACT_ADDRESS = "0xf8e81D47203A594245E36C48e151709F0C19fBe8";
+const CONTRACT_ADDRESS = "0x9feb458a1035aeD7071F6a21FA38B90B00cD3D7A";
 const CONTRACT_ABI = [
     {
+        constant: false,
         inputs: [
             {
                 internalType: "uint256",
-                name: "num",
+                name: "x",
                 type: "uint256"
             }
         ],
-        name: "store",
+        name: "set",
         outputs: [],
+        payable: false,
         stateMutability: "nonpayable",
         type: "function"
     },
     {
+        constant: true,
         inputs: [],
-        name: "retrieve",
+        name: "get",
         outputs: [
             {
                 internalType: "uint256",
@@ -44,6 +47,7 @@ const CONTRACT_ABI = [
                 type: "uint256"
             }
         ],
+        payable: false,
         stateMutability: "view",
         type: "function"
     }
@@ -53,12 +57,12 @@ let contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
 app.use(express_1.default.json()); // for parsing application/json
 app.get("/store", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const fromAddress = "0x5B38Da6a701c568545dCfcB03FcB875f56beddC4";
+        const fromAddress = "0xD9B281Bb7B005f538797F648d213a0625dE1ae14";
         const value = 3;
         //store number in contract
         // @ts-ignore
         // Call the 'retrieve' function of the contract to get the stored value
-        const retrievedValue = yield contract.methods.retrieve().call();
+        const retrievedValue = yield contract.methods.get().call();
         console.log("Retrieved value:", retrievedValue);
         res.send(retrievedValue);
     }
