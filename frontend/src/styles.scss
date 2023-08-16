@@ -9,6 +9,7 @@ html {
   height: 100%;
   margin: 0;
   font-family: Arial, sans-serif;
+  width: 100vw;
   //font color white
 }
 
@@ -16,7 +17,6 @@ html {
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 100%;
 }
 
 .header {
@@ -34,6 +34,7 @@ html {
 }
 
 .sidebar {
+  height: 100vh;
   flex: 0 0 120px;
   border-right: 1px solid #ccc;
   //text color white
