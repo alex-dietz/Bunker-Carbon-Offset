@@ -16,6 +16,7 @@ html {
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
 }
 
 .header {
@@ -24,6 +25,7 @@ html {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  border-bottom: none;
 }
 
 .main-content {
@@ -35,8 +37,25 @@ html {
   flex: 0 0 120px;
   border-right: 1px solid #ccc;
   //text color white
-  text-color: white;
+  border-top: none;
   background-color: rgb(19, 127, 163);
+}
+/* Change the text color of the navbar to white */
+.sidebar .nav-link {
+  color: white;
+}
+body,
+.container {
+  margin: 0;
+  padding: 0;
+}
+.navbar {
+  margin: 0;
+  padding: 0;
+}
+.main-content {
+  margin: 0;
+  padding: 0;
 }
 
 .content {
@@ -45,4 +64,5 @@ html {
   overflow: auto;
   padding-left: 20px;
   padding-top: 20px;
+  background-color: red;
 }

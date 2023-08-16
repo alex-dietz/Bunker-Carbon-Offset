@@ -1,13 +1,11 @@
 <div class="container">
   <div class="header">
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Select User
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#">User 1</a>
-        <a class="dropdown-item" href="#">User 2</a>
-        <a class="dropdown-item" href="#">User 3</a>
+    <div ngbDropdown class="d-inline-block custom-dropdown">
+      <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Select User</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="custom-dropdown-menu">
+        <button ngbDropdownItem>Buyer 1</button>
+        <button ngbDropdownItem>Supplier 1</button>
+        <button ngbDropdownItem>Supplier 2</button>
       </div>
     </div>
   </div>
@@ -15,7 +13,7 @@
     <div class="sidebar">
       <ul class="nav flex-column">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Menu Item 1</a>
+          <a class="nav-link active" href="#">Auctions</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Menu Item 2</a>
