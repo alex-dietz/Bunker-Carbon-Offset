@@ -12,10 +12,13 @@ export class AuctionComponent {
   currentUser: any;
   constructor(private auctionService: AuctionService, private userService: UserService) {
     this.auctionService.getAuctions().subscribe((auctions: any) => {
+      console.log(auctions);
       this.auctions = auctions;
     });
     this.userService.getCurrentUser().subscribe((user: any) => {
       this.currentUser = user;
     });
   }
+
+  openBidModal(auction: any) {}
 }

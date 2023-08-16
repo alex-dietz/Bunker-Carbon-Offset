@@ -13,29 +13,39 @@ export class NewAuctionComponent {
     duration: null,
     fuelType: '',
     fuelAmount: null,
-    carbonEmission: 0
+    carbonEmission: 0,
+    carbonOffsetPercentage: 100
   };
   currentUser: any;
-
   constructor(private auctionService: AuctionService, private userService: UserService) {
     this.currentUser = this.userService.getCurrentUser().subscribe((user: any) => {
       this.currentUser = user;
       this.auction.owner = this.currentUser;
     });
   }
+  getRangeColor(): string {
+    if (this.auction?.carbonOffsetPercentage <= 10) {
+      return 'red';
+    }
+    // You can add more conditions for other colors and percentage ranges
+    return 'black'; // Default color
+  }
 
-  calculateFuelUsage() {
-    console.log(this.auction);
+  updateCarbonOffset() {
+    this.auction.carbonOffset = (this.auction.carbonEmission * this.auction.carbonOffsetPercentage) / 100;
+  }
+  updateCarbonEmission() {
     let calculatedUsage = 0;
 
     if (this.auction.fuelType === 'petrol') {
-      calculatedUsage = this.auction.fuelAmount * 10; // Example calculation, adjust as needed
+      calculatedUsage = this.auction.fuelAmount * 1;
     } else if (this.auction.fuelType === 'diesel') {
-      calculatedUsage = this.auction.fuelAmount * 8; // Example calculation, adjust as needed
+      calculatedUsage = this.auction.fuelAmount * 8;
     } else if (this.auction.fuelType === 'electric') {
-      calculatedUsage = this.auction.fuelAmount * 0.2; // Example calculation, adjust as needed
+      calculatedUsage = this.auction.fuelAmount * 0.2;
     }
     this.auction.carbonEmission = calculatedUsage;
+    this.updateCarbonOffset();
   }
 
   submitForm() {

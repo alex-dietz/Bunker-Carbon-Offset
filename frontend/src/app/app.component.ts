@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'Bunker Carbon Offset';
   currentUser: any;
   constructor(private userService: UserService) {
-    this.userService.setCurrentUser(1);
+    this.userService.setCurrentUser(2);
     this.userService.getCurrentUser().subscribe((user: any) => {
       this.currentUser = user;
     });

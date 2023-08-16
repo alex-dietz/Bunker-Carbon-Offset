@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row" *ngIf="auctions.length > 0; else noAuctions">
     <div class="col-md-4" *ngFor="let auction of auctions">
       <div class="card">
         <div class="card-body">
@@ -15,7 +15,13 @@
             </li>
           </ul>
         </div>
+        <div class="bid-button-container">
+          <button class="btn btn-primary bid-button" (close)="openBidModal(auction)">Bid</button>
+        </div>
       </div>
     </div>
   </div>
+  <ng-template #noAuctions>
+    <p class="no-auctions-text">No ongoing auctions at the moment.</p>
+  </ng-template>
 </div>
