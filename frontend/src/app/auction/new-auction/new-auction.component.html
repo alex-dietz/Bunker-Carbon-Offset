@@ -1,81 +1,123 @@
-<div class="container">
-  <div class="card">
-    <div class="card-body">
-      <h2 class="card-title text-center">Create a New Auction</h2>
-      <hr />
-      <form (submit)="submitForm()">
-        <div class="form-group">
-          <label for="duration">Duration (min):</label>
-          <input [(ngModel)]="auction.duration" class="form-control" id="duration" name="duration" required type="number" />
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title text-center">Create a New Auction</h3>
         </div>
-        <div class="form-group">
-          <label for="vessel">Select Vessel:</label>
-          <select [(ngModel)]="auction.vessel" class="form-control" id="vessel" name="vessel" required>
-            <option value="vessel 1">Vessel 1</option>
-            <option value="vessel 2">Vessel 2</option>
-            <option value="vessel 3">Vessel 3</option>
-          </select>
+        <div class="card-body">
+          <ng-container *ngIf="!showCarbonOffset">
+            <form (submit)="submitForm()">
+              <div class="form-group">
+                <label for="duration">Duration (min):</label>
+                <input [(ngModel)]="auction.duration" class="form-control" id="duration" name="duration" required type="number" />
+              </div>
+              <div class="form-group">
+                <label for="vessel">Select Vessel:</label>
+                <select [(ngModel)]="auction.vessel" class="form-control" id="vessel" name="vessel" required>
+                  <option value="vessel 1">Vessel 1</option>
+                  <option value="vessel 2">Vessel 2</option>
+                  <option value="vessel 3">Vessel 3</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="port">Select Port:</label>
+                <select [(ngModel)]="auction.port" class="form-control" id="port" name="port" required>
+                  <option value="port a">Port A</option>
+                  <option value="port b">Port B</option>
+                  <option value="port c">Port C</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="fuelType">Fuel Type:</label>
+                <select (ngModelChange)="updateCarbonEmission()" [(ngModel)]="auction.fuelType" class="form-control" id="fuelType" name="fuelType" required>
+                  <option value="petrol">Petrol</option>
+                  <option value="diesel">Diesel</option>
+                  <option value="electric">Electric</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="carbonOffsetAmount">Fuel Amount</label>
+                <input
+                  (ngModelChange)="updateCarbonEmission()"
+                  [(ngModel)]="auction.fuelAmount"
+                  class="form-control"
+                  id="fuelAmount"
+                  name="fuelAmount"
+                  type="number"
+                />
+              </div>
+            </form>
+          </ng-container>
+          <ng-container *ngIf="showCarbonOffset">
+            <ng-container *ngIf="auction.carbonEmission > 0">
+              <!-- Top Section Grid -->
+              <div class="grid-wrapper">
+                <!-- Carbon Emissions Column -->
+                <div class="form-group">
+                  <label>Calculated Carbon Emissions:</label>
+                  <div class="carbon-offset">{{ auction?.carbonEmission }} t</div>
+                </div>
+
+                <!-- Carbon Offset Column -->
+                <div class="form-group">
+                  <label>Carbon Offset:</label>
+                  <div class="carbon-offset-amount">{{ auction.carbonOffset }} t</div>
+                </div>
+
+                <!-- Slider, spanning both columns -->
+                <div class="slider-group">
+                  <div class="form-group" [ngStyle]="{ color: getRangeColor() }">
+                    <input
+                      [(ngModel)]="auction.carbonOffsetPercentage"
+                      (ngModelChange)="updateCarbonOffset()"
+                      class="form-control-range"
+                      id="carbonOffset"
+                      max="100"
+                      min="0"
+                      name="carbonOffset"
+                      step="1"
+                      type="range"
+                    />
+                    <div class="carbon-offset">{{ auction?.carbonOffsetPercentage }}%</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Encouragement Text -->
+              <div class="text-center">
+                <small class="form-text text-muted">Offset more and contribute to a greener planet! 🌍</small>
+                <button class="btn btn-link btn-sm mt-2" type="button">Learn More</button>
+              </div>
+
+              <!-- Certificates Section -->
+              <div class="certificates">
+                <h2 class="certificates-title">Currently available Projects</h2>
+                <div class="certificates-grid">
+                  <div class="certificate-card" *ngFor="let certificate of certificates">
+                    <div class="certificate-image">
+                      <img [src]="certificate.image" alt="Project Image" />
+                    </div>
+                    <div class="certificate-content">
+                      <h5>{{ certificate.projectName }}</h5>
+                      <p>Offset Amount: {{ certificate.offsetAmount }} tons</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
         </div>
-        <div class="form-group">
-          <label for="port">Select Port:</label>
-          <select [(ngModel)]="auction.port" class="form-control" id="port" name="port" required>
-            <option value="port a">Port A</option>
-            <option value="port b">Port B</option>
-            <option value="port c">Port C</option>
-          </select>
+        <div class="card-footer d-flex justify-content-between">
+          <ng-container *ngIf="!showCarbonOffset">
+            <button class="btn btn-secondary" (click)="showCarbonOffsetPage()">Next</button>
+          </ng-container>
+          <ng-container *ngIf="showCarbonOffset">
+            <button class="btn btn-secondary" (click)="showAuctionForm()">Back</button>
+            <button class="btn btn-primary" type="submit">Create Auction</button>
+          </ng-container>
         </div>
-        <div class="form-group">
-          <label for="fuelType">Fuel Type:</label>
-          <select (ngModelChange)="updateCarbonEmission()" [(ngModel)]="auction.fuelType" class="form-control" id="fuelType" name="fuelType" required>
-            <option value="petrol">Petrol</option>
-            <option value="diesel">Diesel</option>
-            <option value="electric">Electric</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="carbonOffsetAmount">Fuel Amount</label>
-          <input
-            (ngModelChange)="updateCarbonEmission()"
-            [(ngModel)]="auction.fuelAmount"
-            class="form-control"
-            id="fuelAmount"
-            name="fuelAmount"
-            type="number"
-          />
-        </div>
-        <ng-container *ngIf="auction.carbonEmission > 0">
-          <div class="form-group">
-            <label>Calculated Carbon Emissions:</label>
-            <div class="carbon-offset">{{ auction?.carbonEmission }} t</div>
-          </div>
-          <div class="form-group">
-            <label>Carbon Offset:</label>
-            <div class="carbon-offset-amount">{{ auction.carbonOffset }} t</div>
-          </div>
-          <div class="form-group" [ngStyle]="{ color: getRangeColor() }">
-            <input
-              [(ngModel)]="auction.carbonOffsetPercentage"
-              (ngModelChange)="updateCarbonOffset()"
-              class="form-control-range"
-              id="carbonOffset"
-              max="100"
-              min="0"
-              name="carbonOffset"
-              step="1"
-              type="range"
-            />
-            <div class="carbon-offset">{{ auction?.carbonOffsetPercentage }}%</div>
-          </div>
-          <div class="text-center">
-            <small class="form-text text-muted">Offset more and contribute to a greener planet! 🌍</small>
-            <button class="btn btn-link btn-sm mt-2" type="button">Learn More</button>
-          </div>
-        </ng-container>
-        <hr />
-        <div class="text-center">
-          <button class="btn btn-primary mt-3" type="submit">Create Auction</button>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>

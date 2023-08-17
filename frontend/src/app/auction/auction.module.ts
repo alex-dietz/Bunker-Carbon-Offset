@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NewAuctionComponent } from './new-auction/new-auction.component';
 import { FormsModule } from '@angular/forms';
 import { BidModalComponent } from './bid-modal/bid-modal.component';
+import { AppModule } from '../app.module';
 const routes: Routes = [
   { path: '', component: AuctionComponent },
   { path: 'new', component: NewAuctionComponent }

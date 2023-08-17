@@ -24,7 +24,13 @@ export class AuctionComponent {
     });
   }
   showAllBids(auction: any) {}
-
+  setAuctionStatus(auction: any) {
+    if (auction.status == 'open') {
+      auction.status = 'closed';
+    } else {
+      auction.status = 'open';
+    }
+  }
   openBidModal(auction: any) {
     //open BidModalComponent
     let modalRef = this.modalService.open(BidModalComponent, { centered: true, scrollable: true, size: 'md' });

@@ -1,11 +1,15 @@
 <div class="certificates">
-  <h2 class="certificates-title">Our Carbon Offset Certificates</h2>
+  <h2 class="certificates-title">Carbon Offset Certificates</h2>
+
   <div class="certificates-grid">
-    <div *ngFor="let certificate of certificates" class="certificate-card">
-      <img [src]="certificate.image" alt="Project Image" class="certificate-image" />
+    <!-- Certificate Card 1 -->
+    <div class="certificate-card" *ngFor="let certificate of certificates">
+      <div class="certificate-image">
+        <img [src]="certificate.image" alt="Project Image" />
+      </div>
       <div class="certificate-content">
-        <h3 class="certificate-title">{{ certificate.projectName }}</h3>
-        <p class="offset-amount">Offset: {{ certificate.offsetAmount }} t</p>
+        <h5>{{ certificate.projectName }}</h5>
+        <p>Offset Amount: {{ certificate.offsetAmount }} tons</p>
       </div>
     </div>
   </div>
