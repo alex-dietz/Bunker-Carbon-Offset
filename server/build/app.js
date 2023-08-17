@@ -16,7 +16,7 @@ const express_1 = __importDefault(require("express"));
 const web3_1 = __importDefault(require("web3"));
 const app = (0, express_1.default)();
 const PORT = 3000;
-const RPC_URL = "http://192.168.215.184:7545";
+const RPC_URL = "HTTP://127.0.0.1:7545";
 const web3 = new web3_1.default(new web3_1.default.providers.HttpProvider(RPC_URL));
 // Contract details
 const CONTRACT_ADDRESS = "0x9feb458a1035aeD7071F6a21FA38B90B00cD3D7A";
@@ -63,8 +63,7 @@ app.get("/store", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // @ts-ignore
         // Call the 'retrieve' function of the contract to get the stored value
         const retrievedValue = yield contract.methods.get().call();
-        console.log("Retrieved value:", retrievedValue);
-        res.send(retrievedValue);
+        res.send(retrievedValue.toString());
     }
     catch (error) {
         res.status(500).send(`Error calling store function: ${error.message}`);

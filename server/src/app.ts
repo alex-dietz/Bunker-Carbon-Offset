@@ -2,7 +2,7 @@ import express from "express";
 import Web3 from "web3";
 const app = express();
 const PORT = 3000;
-const RPC_URL = "http://192.168.215.184:7545";
+const RPC_URL = "HTTP://127.0.0.1:7545";
 const web3 = new Web3(new Web3.providers.HttpProvider(RPC_URL));
 // Contract details
 const CONTRACT_ADDRESS = "0x9feb458a1035aeD7071F6a21FA38B90B00cD3D7A";
@@ -50,11 +50,11 @@ app.get("/store", async (req, res) => {
     //store number in contract
     // @ts-ignore
     // Call the 'retrieve' function of the contract to get the stored value
-    const retrievedValue = await contract.methods.get().call();
+    const retrievedValue:any = await contract.methods.get().call();
 
-    console.log("Retrieved value:", retrievedValue);
+    
 
-    res.send(retrievedValue);
+    res.send(retrievedValue.toString());
   } catch (error: any) {
     res.status(500).send(`Error calling store function: ${error.message}`);
   }
