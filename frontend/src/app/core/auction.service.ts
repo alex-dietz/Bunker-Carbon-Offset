@@ -39,7 +39,7 @@ export class AuctionService {
     });
     //sort bids in descending order
     this.auctions[0].bids.sort((a: any, b: any) => {
-      return b.bidAmount - a.bidAmount;
+      return a.bidAmount - b.bidAmount;
     });
     this.auctions$.next(this.auctions);
   }
