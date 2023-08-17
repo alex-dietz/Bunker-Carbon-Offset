@@ -27,3 +27,45 @@
 .btn-primary {
   align-self: center;
 }
+.bid-section {
+  background-color: #f5f8fa;
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+  .lowest-bid {
+    font-size: 1.1rem;
+    font-weight: 500;
+
+    .bid-badge {
+      color: #fff;
+      background-color: #007bff;
+      padding: 5px 10px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+  }
+
+  .view-all-bids {
+    margin-top: 10px;
+
+    .view-bids-btn {
+      font-size: 0.8rem;
+      padding: 5px 15px;
+      color: #007bff;
+      border-color: #007bff;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #007bff;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.no-bids-text {
+  color: #a5a5a5;
+  font-style: italic;
+}

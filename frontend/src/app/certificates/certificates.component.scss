@@ -1,0 +1,52 @@
+.certificates {
+  background-color: #f5f8fa;
+  padding: 50px 0;
+  font-family: "Arial", sans-serif;
+  text-align: center;
+
+  .certificates-title {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 30px;
+  }
+
+  .certificates-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+
+    .certificate-card {
+      flex: 0 0 calc(25% - 30px); // Taking the gap into consideration
+      background-color: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateY(-10px);
+      }
+
+      .certificate-image {
+        width: 100%;
+        height: auto;
+      }
+
+      .certificate-content {
+        padding: 20px;
+        background-color: rgba(0, 128, 0, 0.1); // A subtle green tint
+
+        .certificate-title {
+          font-size: 1.2em;
+          margin-bottom: 15px;
+        }
+
+        .offset-amount {
+          color: #007800; // A dark green
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

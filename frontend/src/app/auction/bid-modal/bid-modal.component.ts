@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-bid-modal',
@@ -8,7 +9,11 @@ import { Component, Input } from '@angular/core';
 export class BidModalComponent {
   @Input() auction: any;
   bidAmount: any;
-  constructor() {}
+  @Input() currentUser: any;
+  constructor(public activeModal: NgbActiveModal) {}
 
-  placeBid() {}
+  placeBid() {
+    //close modal and pass down bidAmount
+    this.activeModal.close(this.bidAmount);
+  }
 }

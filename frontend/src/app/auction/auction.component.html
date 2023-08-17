@@ -1,21 +1,39 @@
 <div class="container">
+  <h4 class="text-muted">Open Auctions</h4>
   <div class="row" *ngIf="auctions.length > 0; else noAuctions">
     <div class="col-md-4" *ngFor="let auction of auctions">
       <div class="card">
+        <!-- Card Header -->
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="card-title">{{ auction?.owner.username }}</h5>
+          <span class="badge status-badge" [ngClass]="auction.status">{{ auction.status }}</span>
+        </div>
+        <!-- Card Body -->
         <div class="card-body">
-          <h5 class="card-title">{{ auction?.title }}</h5>
           <p class="card-text">Fuel Type: {{ auction.fuelType }}</p>
           <p class="card-text">Fuel Amount: {{ auction.fuelAmount }} t</p>
+          <p *ngIf="auction.carbonOffset > 0" class="carbon-offset-info"><i class="fas fa-tree"></i> Buyer is offsetting</p>
           <hr />
+
           <h6 class="card-subtitle mb-2 text-muted">Bids</h6>
-          <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let bid of auction.bids">
-              {{ bid.bidder }}
-              <span class="badge badge-primary">{{ bid.amount }}$</span>
-            </li>
-          </ul>
+          <div class="bid-section" *ngIf="auction.bids.length > 0; else noBids">
+            <!-- Display the lowest bid -->
+            <div class="lowest-bid d-flex justify-content-between align-items-center">
+              <span>{{ auction.bids[0].bidder.username }}</span>
+              <span class="badge bid-badge">{{ auction.bids[0].bidAmount }}$</span>
+            </div>
+
+            <!-- Show button to display all bids if more than one bid exists -->
+            <div *ngIf="auction.bids.length > 1" class="view-all-bids">
+              <button class="btn btn-sm view-bids-btn" (click)="showAllBids(auction)">View all bids</button>
+            </div>
+          </div>
+
+          <ng-template #noBids>
+            <p class="no-bids-text">No bids yet.</p>
+          </ng-template>
         </div>
-        <div class="bid-button-container">
+        <div class="card-footer">
           <button class="btn btn-primary bid-button" (click)="openBidModal(auction)">Bid</button>
         </div>
       </div>
@@ -23,5 +41,58 @@
   </div>
   <ng-template #noAuctions>
     <p class="no-auctions-text">No ongoing auctions at the moment.</p>
+  </ng-template>
+  <hr />
+
+  <!-- Schedules Auctions -->
+  <h4 class="text-muted">Scheduled Auctions</h4>
+  <div class="row" *ngIf="scheduledAuctions.length > 0; else noScheduledAuctions">
+    <div class="col-md-4" *ngFor="let auction of scheduledAuctions">
+      <div class="card closed-auction-card">
+        <div class="card-body">
+          <h5 class="card-title">{{ auction?.title }}</h5>
+          <p class="card-text">Fuel Type: {{ auction.fuelType }}</p>
+          <p class="card-text">Fuel Amount: {{ auction.fuelAmount }} t</p>
+          <hr />
+          <h6 class="card-subtitle mb-2 text-muted">Final Bid</h6>
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              {{ auction.finalBid.bidder }}
+              <span class="badge badge-secondary">{{ auction.finalBid.amount }}$</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noScheduledAuctions>
+    <p class="no-auctions-text">No scheduled auctions available.</p>
+  </ng-template>
+  <!-- Separator -->
+  <hr />
+
+  <!-- Closed Auctions -->
+  <h4 class="text-muted">Closed Auctions</h4>
+  <div class="row" *ngIf="closedAuctions.length > 0; else noClosedAuctions">
+    <div class="col-md-4" *ngFor="let closedAuction of closedAuctions">
+      <div class="card closed-auction-card">
+        <div class="card-body">
+          <h5 class="card-title">{{ closedAuction?.title }}</h5>
+          <p class="card-text">Fuel Type: {{ closedAuction.fuelType }}</p>
+          <p class="card-text">Fuel Amount: {{ closedAuction.fuelAmount }} t</p>
+          <hr />
+          <h6 class="card-subtitle mb-2 text-muted">Final Bid</h6>
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              {{ closedAuction.finalBid.bidder }}
+              <span class="badge badge-secondary">{{ closedAuction.finalBid.amount }}$</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noClosedAuctions>
+    <p class="no-auctions-text">No closed auctions available.</p>
   </ng-template>
 </div>

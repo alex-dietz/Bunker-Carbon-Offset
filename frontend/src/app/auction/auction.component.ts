@@ -11,6 +11,8 @@ import { BidModalComponent } from './bid-modal/bid-modal.component';
 })
 export class AuctionComponent {
   auctions: any[] = [];
+  closedAuctions: any[] = [];
+  scheduledAuctions: any[] = [];
   currentUser: any;
   constructor(private auctionService: AuctionService, private userService: UserService, private modalService: NgbModal) {
     this.auctionService.getAuctions().subscribe((auctions: any) => {
@@ -21,13 +23,15 @@ export class AuctionComponent {
       this.currentUser = user;
     });
   }
+  showAllBids(auction: any) {}
 
   openBidModal(auction: any) {
     //open BidModalComponent
     let modalRef = this.modalService.open(BidModalComponent, { centered: true, scrollable: true, size: 'md' });
     modalRef.componentInstance.auction = auction;
+    modalRef.componentInstance.currentUser = this.currentUser;
     modalRef.closed.subscribe((res) => {
-      console.log(res);
+      this.auctionService.placeBid(auction, res);
     });
   }
 }
