@@ -1,0 +1,23 @@
+.modal-body {
+  .auction-info {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+
+    label {
+      display: block;
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
+  }
+
+  .bid-section {
+    margin-top: 15px;
+
+    input {
+      width: 100%;
+    }
+  }
+}

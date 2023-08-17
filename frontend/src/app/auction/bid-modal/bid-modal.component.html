@@ -1,1 +1,29 @@
-<p>bid-modal works!</p>
+<div class="modal-header">
+  <h5 class="modal-title">Bid</h5>
+</div>
+
+<div class="modal-body">
+  <!-- Auction Information -->
+  <div class="auction-info mb-4">
+    <div class="row">
+      <div class="col-md-6">
+        <label class="font-weight-bold">Fuel Type:</label>
+        <p>{{ auction?.fuelType }}</p>
+      </div>
+      <div class="col-md-6">
+        <label class="font-weight-bold">Fuel Amount:</label>
+        <p>{{ auction?.fuelAmount }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bid Amount Input -->
+  <div class="bid-section">
+    <label for="bidAmount" class="font-weight-bold">Your Bid:</label>
+    <input type="number" class="form-control" id="bidAmount" placeholder="Enter your bid amount" />
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-outline-secondary w-100" (click)="placeBid()">Place Bid</button>
+</div>
