@@ -11,7 +11,7 @@ import { UserService } from 'src/app/core/user.service';
 export class NewAuctionComponent {
   showCarbonOffset = false;
   auction: any = {
-    duration: null,
+    date: null,
     fuelType: '',
     fuelAmount: null,
     carbonEmission: 0,
@@ -20,18 +20,19 @@ export class NewAuctionComponent {
   certificates = [
     {
       projectName: 'Forest Conservation in Amazon',
-      offsetAmount: 1500,
+      offsetAmount: 500,
       image: 'https://www.green.earth/hubfs/Deforestation%20in%20the%20Amazon%20Rainforest_amazon%20rainforest_featured.png'
     },
     {
       projectName: 'Wind Energy Production in Germany',
-      offsetAmount: 1000,
+      offsetAmount: 3000,
       image: 'https://comsys.se/wp-content/uploads/2022/04/offshore-wind-farm.jpg'
     },
     {
-      projectName: 'Forest Conservation in Amazon',
+      projectName: 'Mongolia Improved Forest Management',
       offsetAmount: 100,
-      image: 'https://www.green.earth/hubfs/Deforestation%20in%20the%20Amazon%20Rainforest_amazon%20rainforest_featured.png'
+      image: 'https://bluepeak.net/wp-content/uploads/2019/10/Forest-in-Terelj-Tuv-Aimag-Mongolia-MN51-26.jpg',
+      link: 'https://www.carbonmark.com/projects/VCS-1529-2011'
     }
   ];
   currentUser: any;
@@ -61,24 +62,22 @@ export class NewAuctionComponent {
   updateCarbonEmission() {
     let calculatedUsage = 0;
 
-    if (this.auction.fuelType === 'petrol') {
-      calculatedUsage = this.auction.fuelAmount * 1;
-    } else if (this.auction.fuelType === 'diesel') {
-      calculatedUsage = this.auction.fuelAmount * 8;
-    } else if (this.auction.fuelType === 'electric') {
-      calculatedUsage = this.auction.fuelAmount * 0.2;
+    if (this.auction.fuelType === 'gas_oil') {
+      calculatedUsage = this.auction.fuelAmount * 3;
+    } else if (this.auction.fuelType === 'MGO') {
+      calculatedUsage = this.auction.fuelAmount * 2.8;
+    } else if (this.auction.fuelType === 'RMG_380') {
+      calculatedUsage = this.auction.fuelAmount * 3.2;
     }
     this.auction.carbonEmission = calculatedUsage;
     this.updateCarbonOffset();
   }
 
   submitForm() {
+    this.auction.status = 'scheduled';
+    this.auction.bids = [];
+
     // You can handle form submission logic here
     this.auctionService.createNewAuction(this.auction);
-    // Reset the form after submission
-    this.auction = {
-      duration: null,
-      fuelType: ''
-    };
   }
 }

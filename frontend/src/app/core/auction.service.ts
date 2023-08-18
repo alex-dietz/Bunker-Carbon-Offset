@@ -9,19 +9,29 @@ export class AuctionService {
   auctions: any = [];
   auctions$: any;
   sampleAuction = {
-    duration: 10,
-    fuelType: 'diesel',
+    date: '10.01.2024',
+    port: 'Hamburg',
+    fuelType: 'Diesel',
     fuelAmount: 20,
     carbonEmission: 160,
     carbonOffsetPercentage: 0.5,
-    status: 'open',
+    status: 'closed',
     carbonOffset: 80,
     owner: {
       id: 2,
-      username: 'buyer456',
+      username: 'BuyIT SE',
       role: 'buyer'
     },
-    bids: []
+    bids: [
+      {
+        bidder: {
+          id: 1,
+          username: 'MuchOil GmbH',
+          role: 'supplier'
+        },
+        bidAmount: 100
+      }
+    ]
   };
   currentUser: any;
   constructor(private userService: UserService) {
@@ -45,7 +55,11 @@ export class AuctionService {
   }
 
   createNewAuction(auction: any) {
-    this.auctions.push(auction);
+    //add as first item
+
+    this.auctions.unshift(auction);
+    console.log(this.auctions);
+    this.auctions$.next(this.auctions);
   }
   getAuctions() {
     return this.auctions$.asObservable();

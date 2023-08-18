@@ -534,25 +534,67 @@ const CONTRACT_ABI = [
 ];
 
 // Create contract instance
-let main_contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+let mainContract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
 
-app.use(express.json()); // for parsing application/json
+// Create contract instance
 
-app.get("/store", async (req, res) => {
-  try {
-    const fromAddress = "0xD9B281Bb7B005f538797F648d213a0625dE1ae14";
+app.use(express.json()); // Middleware to parse JSON
 
-    //store number in contract
-    // @ts-ignore
-    // Call the 'retrieve' function of the contract to get the stored value
-    const value = await contract.methods.nftDetails(1).call();
-    console.log("Value of data:", value);
+app.post("/setCarbonToken", async (req, res) => {
+  const { adminPrivateKey, carbonCreditsTokenAddress } = req.body;
 
-    res.send(value);
-  } catch (error: any) {
-    res.status(500).send(`Error calling store function: ${error.message}`);
-  }
+  const transactionData = {
+    from: web3.eth.accounts.privateKeyToAccount(adminPrivateKey).address,
+    gas: "3000000"
+  };
+
+  mainContract.methods
+    //@ts-ignore
+    .setCarbonToken(carbonCreditsTokenAddress)
+    .send(transactionData)
+    .then((transaction: any) => {
+      res.json({ success: true, transactionHash: transaction.transactionHash });
+    })
+    .catch((error: any) => {
+      res.status(400).json({ success: false, error: error.message });
+    });
 });
+
+app.post("/initiateTrade", async (req, res) => {
+  const { userPrivateKey, euroAmount } = req.body;
+
+  const transactionData = {
+    from: web3.eth.accounts.privateKeyToAccount(userPrivateKey).address,
+    gas: "3000000"
+  };
+
+  mainContract.methods
+    //@ts-ignore
+    .initiateTrade(euroAmount)
+    .send(transactionData)
+    .then((transaction: any) => {
+      res.json({ success: true, transactionHash: transaction.transactionHash });
+    })
+    .catch((error: any) => {
+      res.status(400).json({ success: false, error: error.message });
+    });
+});
+
+app.get("/nftDetails/:tokenId", async (req, res) => {
+  const tokenId = req.params.tokenId;
+
+  mainContract.methods
+    //@ts-ignore
+    .nftDetails(tokenId)
+    .call()
+    .then((nftDetail: any) => {
+      res.json({ success: true, nftDetail });
+    })
+    .catch((error: any) => {
+      res.status(400).json({ success: false, error: error.message });
+    });
+});
+
 app.listen(PORT, () => {
   console.log(`Server started on http://localhost:${PORT}`);
 });

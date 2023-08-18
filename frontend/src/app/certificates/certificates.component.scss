@@ -60,3 +60,19 @@
     }
   }
 }
+.certificate-card {
+  .owner-username {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #007bff; // You can choose any color, this is a Bootstrap primary blue for reference.
+    margin-bottom: 8px;
+  }
+
+  .certificate-footer {
+    text-align: center;
+
+    button {
+      width: 100%; // To make the button stretch across the footer width
+    }
+  }
+}

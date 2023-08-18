@@ -8,8 +8,22 @@
         <img [src]="certificate.image" alt="Project Image" />
       </div>
       <div class="certificate-content">
+        <h6 class="owner-username">{{ certificate.owner?.username }}</h6>
         <h5>{{ certificate.projectName }}</h5>
         <p>Offset Amount: {{ certificate.offsetAmount }} tons</p>
+      </div>
+
+      <div class="certificate-footer d-flex justify-content-between">
+        <a
+          class="btn btn-secondary"
+          href="https://sepolia.etherscan.io/tx/0x6b794ac7122bd8516882feae7e820f13bacb3facda079922a167883201ed6551"
+          title="https://sepolia.etherscan.io/tx/0x6b794ac7122bd8516882feae7e820f13bacb3facda079922a167883201ed6551"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Show Transaction
+        </a>
+        <a class="btn btn-primary" href="https://carbonmark.com" title="https://carbonmark.com" target="_blank" rel="noopener noreferrer"> Find out more </a>
       </div>
     </div>
   </div>

@@ -6,22 +6,22 @@
   },
   {
     "id": 2,
-    "username": "buyer456",
+    "username": "Buyer Inc.",
     "role": "buyer"
   },
   {
     "id": 3,
-    "username": "supplier789",
+    "username": "Supply Ltd.",
     "role": "supplier"
   },
   {
     "id": 4,
-    "username": "supplier555",
+    "username": "Wave Petroleum",
     "role": "supplier"
   },
   {
     "id": 5,
-    "username": "supplier321",
+    "username": "Oil Connoisseur",
     "role": "supplier"
   }
 ]

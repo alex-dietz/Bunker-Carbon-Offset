@@ -157,3 +157,14 @@
     color: #000000;
   }
 }
+.info-row {
+  font-size: 0.9em;
+  color: #555; // A slightly dimmed text for subtle display
+
+  .date-info,
+  .port-info {
+    padding: 0.5em;
+    background-color: #f7f7f7; // A light background for contrast
+    border-radius: 5px;
+  }
+}

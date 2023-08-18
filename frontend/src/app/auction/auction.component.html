@@ -1,5 +1,5 @@
 <div class="container">
-  <h4 class="text-muted">Open Auctions</h4>
+  <h4 class="text-muted">Auctions</h4>
   <div class="row" *ngIf="auctions.length > 0; else noAuctions">
     <div class="col-md-4" *ngFor="let auction of auctions">
       <div class="card">
@@ -10,16 +10,23 @@
         </div>
         <!-- Card Body -->
         <div class="card-body">
+          <div class="info-row d-flex justify-content-between align-items-center mb-3">
+            <span class="date-info">{{ auction.date | date : "mediumDate" }}</span>
+            <span class="port-info">Port: {{ auction.port }}</span>
+          </div>
           <p class="card-text">Fuel Type: {{ auction.fuelType }}</p>
           <p class="card-text">Fuel Amount: {{ auction.fuelAmount }} t</p>
-          <p *ngIf="auction.carbonOffset > 0" class="carbon-offset-info"><i class="fas fa-tree"></i> Buyer is offsetting</p>
+          <p *ngIf="auction.carbonOffset > 0" class="carbon-offset-info">
+            <i class="fas fa-tree"></i> Buyer is offsetting {{ auction.carbonOffsetPercentage }} %
+          </p>
           <hr />
 
           <h6 class="card-subtitle mb-2 text-muted">Bids</h6>
-          <div class="bid-section" *ngIf="auction.bids.length > 0; else noBids">
+          <div class="bid-section" *ngIf="auction?.bids.length > 0; else noBids">
             <!-- Display the lowest bid -->
             <div class="lowest-bid d-flex justify-content-between align-items-center">
-              <span>{{ auction.bids[0].bidder.username }}</span>
+              <p>Best Bid:</p>
+              <span *ngIf="currentUser.role == 'buyer'">{{ auction.bids[0].bidder.username }}</span>
               <span class="badge bid-badge">{{ auction.bids[0].bidAmount }}$</span>
             </div>
 
@@ -34,10 +41,13 @@
           </ng-template>
         </div>
         <div class="card-footer">
-          <button *ngIf="currentUser.role == 'supplier'" class="btn btn-primary bid-button" (click)="openBidModal(auction)">Bid</button>
-          <button *ngIf="currentUser.role == 'buyer'" class="btn btn-primary bid-button" (click)="setAuctionStatus(auction)">
+          <button *ngIf="currentUser.role == 'supplier' && auction.status != 'closed'" class="btn btn-primary bid-button" (click)="openBidModal(auction)">
+            Bid
+          </button>
+          <button *ngIf="currentUser.role == 'buyer' && auction.status != 'closed'" class="btn btn-primary bid-button" (click)="setAuctionStatus(auction)">
             {{ auction.status == "scheduled" ? "Start Auction" : "End Auction" }}
           </button>
+          <button *ngIf="auction.status == 'closed'" class="btn btn-primary bid-button" routerLink="../certificates">See Carbon Offset Certificate</button>
         </div>
       </div>
     </div>
